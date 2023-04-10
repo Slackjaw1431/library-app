@@ -1,38 +1,108 @@
-.App {
-  text-align: center;
+:root {
+  --mainOpacity: rgba(0, 0, 0, 0.55);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header {
+  background-image: linear-gradient(
+      rgba(238, 193, 193, 0.312),
+      rgba(114, 68, 68, 0.7)
+    ),
+    url("./Images/PublicImages/image-2.jpg");
+  background-size: cover;
+  opacity: var(--mainOpacity);
+  height: 25em !important;
+  color: rgba(255, 255, 255, 0.881);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.dark-overlay {
+  background-color: rgba(205, 179, 92, 0.464);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.main-color {
+  background-color: #957843;
+}
+
+.navbar-expand-lg navbar-dark main-color py-3 {
+  background-color: #b9944f76;
+}
+
+.nav-link {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.carousel {
+  border-radius: 10px;
+  padding-top: 10px;
+  border: solid 10px #b9944f76;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.container {
+  border-radius: 10px;
+  /* border: solid 1px black; */
+}
+
+.col-image-left {
+  background-image: url("./Images/PublicImages/image-3.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 25em !important;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+.col-image-right {
+  background-image: url("./Images/PublicImages/image-1.jpg");
+  background-position: 70% 30%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 25em !important;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.lost-image {
+  background-image: url("./Images/PublicImages/image-4.jpg");
+  background-position: 100% 40%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 25em !important;
+  border-radius: 10px;
+  width: "720";
+}
+
+.homepage-carousel-title {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding-top: 5px;
+}
+
+.book-div {
+  width: 480px;
+  height: 384px;
+}
+
+.inactiveLink {
+  pointer-events: none;
+  cursor: default;
+}
+
+.d-none {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn:hover {
+  background-color: #bf2105e2;
+}
+
+li:hover {
+  background-color: #bf2105e2;
+  border-radius: 10px;
 }
