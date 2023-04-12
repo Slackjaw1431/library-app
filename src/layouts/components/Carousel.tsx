@@ -1,13 +1,14 @@
 import { ReturnBook } from "./ReturnBook";
 import { useEffect, useState } from "react";
 import BookModel from "../../models/BookModel";
+import {SpinnerLoading} from "../utils/SpinnerLoading";
 
 export const Carousel = () => {
 
   const [books, setBooks] = useState<BookModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
-  // let randomBook = Math.floor(Math.random()*books.length);
+  let randomBook = Math.floor(Math.random()*books.length);
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -50,9 +51,10 @@ export const Carousel = () => {
 
   if (isLoading) {
     return (
-        <div className="container md-5">
-          <p>Loading books...</p>
-        </div>
+        // <div className="container md-5">
+        //   <p>Loading books...</p>
+        // </div>
+      <SpinnerLoading/>
     )
   }
 
@@ -110,7 +112,7 @@ export const Carousel = () => {
         {/* Mobile */}
         <div className="d-lg-none mt-3">
           <div className="row d-flex justify-content-center align-items-center">
-            <ReturnBook book={books[7]} key={books[7].id} />
+            <ReturnBook book={books[randomBook]} key={books[randomBook].id} />
           </div>
         </div>
         <div className="homepage-carousel-title mt-3">
