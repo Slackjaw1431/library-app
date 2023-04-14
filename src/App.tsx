@@ -4,14 +4,28 @@ import { Navbar } from "./layouts/NavboorAndFooter/Navbar";
 import { Footer } from "./layouts/NavboorAndFooter/Footer";
 import { Homepage } from "./layouts/Homepage/HomePage";
 import { SearchBooksPage } from "./layouts/SearchBooksPage/SearchBooksPage";
+import {Route, Switch, Redirect } from "react-router-dom";
 
 export const App = () => {
   return (
-    <div>
+    <div className={'d-flex flex-column min-vh-100'}>
       <Navbar />
-      {/*<Homepage />*/}
-       <SearchBooksPage />
-      <Footer />
+        <div className={'flex-grow-1'}>
+        <Switch>
+            <Route path={'/'} exact>
+                <Redirect to={'/home'}/>
+            </Route>
+            <Route path={'/home'} exact>
+                <Homepage />
+            </Route>
+            <Route path={'/search'}>
+                <SearchBooksPage />
+            </Route>
+            {/*<Route path=''>*/}
+            {/*</Route>*/}
+        </Switch>
+        </div>
+      <Footer/>
     </div>
   );
 };
