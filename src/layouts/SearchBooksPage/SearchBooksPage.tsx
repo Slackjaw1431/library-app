@@ -5,24 +5,31 @@ import { SearchBook } from "./components/SearchBook";
 import { Pagination } from "../utils/Pagination";
 
 export const SearchBooksPage = () => {
+
   const [books, setBooks] = useState<BookModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage] = useState(5);
   const [totalAmountOfBooks, setTotalAmountOfBooks] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [search, setSearch] = useState("");
-  const [searchUrl, setSearchUrl] = useState("");
-  const [categorySelection, setCategorySelection] = useState("Book category");
+  const [search, setSearch] = useState('');
+  const [searchUrl, setSearchUrl] = useState('');
+  const [categorySelection, setCategorySelection] = useState("Book Category");
 
   useEffect(() => {
     const fetchBooks = async () => {
       const baseUrl: string = "http://localhost:8080/api/books";
-      const url: string = `${baseUrl}?page=${
-        currentPage - 1
-      }&size=${booksPerPage}`;
+
+      let url: string = '';
+
+      if (searchUrl === '') {
+        url = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;//initially shows all books
+      } else {
+        var searchWithPage = searchUrl.replace('<pageNumber>', `${currentPage - 1}`)
+        url = baseUrl + searchWithPage;//otherwise shows custom search request
+      }
+
       const response = await fetch(url);
 
       if (!response.ok) {
@@ -57,7 +64,7 @@ export const SearchBooksPage = () => {
       setHttpError(error.message);
     });
     window.scrollTo(0, 0); //scroll to the top when page changes
-  }, [currentPage]); //recall function when currentPage changes
+  }, [currentPage, searchUrl]); //recall function when currentPage changes
 
   if (isLoading) {
     return <SpinnerLoading />;
@@ -72,37 +79,28 @@ export const SearchBooksPage = () => {
   }
 
   const searchHandleChange = () => {
-    if (search === "") {
-      setSearchUrl("");
+    setCurrentPage(1)
+    if (search === '') {
+      setSearchUrl('');
     } else {
-      setSearchUrl(
-        `/search/findByTitleContaining?title=${search}&page=0&size=${booksPerPage}`
-      );
+      setSearchUrl(`/search/findByTitleContaining?title=${search}&page=<pageNumber>&size=${booksPerPage}`)
     }
-  };
+    setCategorySelection('Book Category');
+  }
 
   const categoryField = (value: string) => {
-    if (
-      value.toLowerCase() === "fe" ||
-      value.toLowerCase() === "be" ||
-      value.toLowerCase() === "data" ||
-      value.toLowerCase() === "devops"
-    ) {
+    setCurrentPage(1)
+    if (value.toLowerCase() === 'fe' || value.toLowerCase() === 'be' || value.toLowerCase() === 'data' || value.toLowerCase() === 'devops') {
       setCategorySelection(value);
-      setSearchUrl(
-        `/search/findByCategory?category=${value}&page=0&size=${booksPerPage}`
-      );
+      setSearchUrl(`/search/findByCategory?category=${value}&page=<pageNumber>&size=${booksPerPage}`)
     } else {
-      setCategorySelection("All");
-      setSearchUrl(`?page=0&size=${booksPerPage}`);
+      setCategorySelection('All');
+      setSearchUrl(`?page=<pageNumber>&size=${booksPerPage}`);
     }
-  };
-
+  }
   const indexOfLastBook: number = currentPage * booksPerPage; //getting the element of the books in the search
   const indexOfFirstBook: number = indexOfLastBook - booksPerPage;
-  let lastItem =
-    booksPerPage * currentPage <= totalAmountOfBooks
-      ? booksPerPage * currentPage
+  let lastItem = booksPerPage * currentPage <= totalAmountOfBooks ? booksPerPage * currentPage
       : totalAmountOfBooks;
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -173,22 +171,22 @@ export const SearchBooksPage = () => {
               </div>
             </div>
           </div>
-          {totalAmountOfBooks > 0 ? (
+          {totalAmountOfBooks > 0 ?
             <>
               <div className="mt-3">
                 <h5>Number of results: ({totalAmountOfBooks})</h5>
               </div>
               <p>
-                {indexOfFirstBook + 1} to {lastItem} of {totalAmountOfBooks}{" "}
-                items:
+                {indexOfFirstBook + 1} to {lastItem} of {totalAmountOfBooks} items:
               </p>
               {books.map((book) => (
                 <SearchBook book={book} key={book.id} />
               ))}
             </>
-          ) : (
+          :
             <div className="m-5">
-              <h3>Can't find what you are looking for?</h3>
+              <h3>Please enter a valid search parameter</h3>
+              <br></br>
               <a
                 type="button"
                 className="btn main-color btn-md px-4 me-md-2 fw-bold text-white"
@@ -197,14 +195,14 @@ export const SearchBooksPage = () => {
                 Library Services
               </a>
             </div>
-          )}
-          {totalPages > 1 && ( //only render the following if condition true
+          }
+          {totalPages > 1 && //only render the following if condition true
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}
               paginate={paginate}
             />
-          )}
+          }
         </div>
       </div>
     </div>

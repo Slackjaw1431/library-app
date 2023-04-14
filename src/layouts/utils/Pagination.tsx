@@ -13,7 +13,7 @@ export const Pagination: React.FC<{
   const totalPages = Math.min(props.totalPages, numberOfPageNumbers);
 
   // filling in the available pages out of total to choose from
-  // most sites keep it simple with elipses and only show the nearest   proceeding and preceeing pages
+  // most sites keep it simple with elipses and only show the nearest   proceeding and preceeding pages
 
   if (props.currentPage <= halfPages) {
     pagesBefore = props.currentPage - 1;
