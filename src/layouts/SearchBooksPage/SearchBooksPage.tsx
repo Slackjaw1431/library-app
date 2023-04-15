@@ -174,7 +174,7 @@ export const SearchBooksPage = () => {
           {totalAmountOfBooks > 0 ?
             <>
               <div className="mt-3">
-                <h5>Number of results: ({totalAmountOfBooks})</h5>
+                <h5>Number of results: {totalAmountOfBooks}</h5>
               </div>
               <p>
                 {indexOfFirstBook + 1} to {lastItem} of {totalAmountOfBooks} items:
