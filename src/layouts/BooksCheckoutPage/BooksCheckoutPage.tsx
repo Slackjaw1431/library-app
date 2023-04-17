@@ -140,7 +140,7 @@ export const BooksCheckoutPage = () => {
             <p className='lead'>{book?.description}</p>
           </div>
         </div>
-        <CheckoutAndReviewBox book={book} mobile={false}/>
+        <CheckoutAndReviewBox book={book} mobile={true}/>
         <hr />
         <LatestReviews reviews={reviews} bookId={book?.id} mobile={true}/>
       </div>

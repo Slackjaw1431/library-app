@@ -8,7 +8,6 @@ export const CheckoutAndReviewBox: React.FC<{book: bookModel | undefined, mobile
                 <div className={'mt-3'}>
                     <p>
                         <b>0/5 </b> books checked out
-
                     </p>
                     <hr/>
                     {props.book && props.book.copiesAvailable && props.book.copiesAvailable > 0 ?
