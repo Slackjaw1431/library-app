@@ -134,20 +134,14 @@ export const BooksCheckoutPage = () => {
             'Content-Type': 'application/json'
           }
         };
-        // const bookCheckedOut = await fetch(url, requestOptions);
-        //
-        // if (!bookCheckedOut.ok) {
-        //   throw new Error('Something went wrong!');
-        // }
-        // const bookCheckedOutResponseJson = await bookCheckedOut.json();
-        // setIsCheckedOut(bookCheckedOutResponseJson);
 
+        const bookCheckedOut = await fetch(url, requestOptions);
 
-        // if (!bookCheckedOut.ok) {
-        //   throw new Error('Something went wrong!');
-        // }
-        // const bookCheckedOutResponseJson = await bookCheckedOut.json();
-        // setIsCheckedOut(bookCheckedOutResponseJson);
+        if (!bookCheckedOut.ok) {
+          throw new Error('Something went wrong!');
+        }
+        const bookCheckedOutResponseJson = await bookCheckedOut.json();
+        setIsCheckedOut(bookCheckedOutResponseJson);
 
       }
       setIsLoadingBookCheckedOut(false);
