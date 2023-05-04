@@ -11,7 +11,7 @@ export const CheckoutAndReviewBox: React.FC<{book: bookModel | undefined, mobile
                 return (<button onClick={()=>props.checkoutBook()} className={'btn btn-success btn-lg'}>Checkout</button>)
             }
             else if (props.isCheckedOut) {
-                return (<p><b>Checked Out</b></p>)
+                return (<p><b>Book Checked Out. Enjoy!</b></p>)
             }
             else if (!props.isCheckedOut && props.currentLoansCount >= 5) {
                 return (<p className={'text-danger'}>Checkout Limit Reached</p>)

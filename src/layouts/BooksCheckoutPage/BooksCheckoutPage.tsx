@@ -18,6 +18,8 @@ export const BooksCheckoutPage = () => {
   const [reviews, setReviews] = useState<ReviewModel[]>([]);
   const [totalStars, setTotalStars] = useState(0);
   const [isLoadingReview, setIsLoadingReview] = useState(true);
+  const [isReviewLeft, setIsReviewLeft] = useState(false);
+  const [isLoadingUserReview, setIsLoadingUserReview] = useState(true);
 
   const [currentLoansCount, setCurrentLoansCount] = useState(0);
   const [isLoadingCurrentLoansCount, setIsLoadingCurrentLoansCount] = useState(true);
@@ -152,7 +154,17 @@ export const BooksCheckoutPage = () => {
     })
   }, [authState]);
 
-  if (isLoading || isLoadingReview || isLoadingCurrentLoansCount || isLoadingBookCheckedOut) {
+  useEffect(()=> {
+    const fetchUserReviewBook = async () => {
+
+    }
+    fetchUserReviewBook().catch((error:any)=>{
+      setIsLoadingReview(false);
+      setHttpError(error.message);
+    })
+  },[authState])
+
+  if (isLoading || isLoadingReview || isLoadingCurrentLoansCount || isLoadingBookCheckedOut || isLoadingUserReview) {
     return <SpinnerLoading />;
   }
 
