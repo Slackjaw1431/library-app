@@ -1,8 +1,8 @@
 import React from "react";
 
-export const StarsReview: React.FC<{Rating: number, size: number}> = (props) => {
+export const StarsReview: React.FC<{rating: number, size: number}> = (props) => {
 
-    let rating = props.Rating;
+    let rating = props.rating;
     let fullStars = 0;
     let halfStars = 0;
     let emptyStars = 0;

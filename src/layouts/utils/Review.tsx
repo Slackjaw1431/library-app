@@ -18,7 +18,7 @@ export const Review:React.FC<{ review: ReviewModel }> = (props) => {
                     {dateRender}
                 </div>
                 <div className={'col'}>
-                    <StarsReview Rating={props.review.rating} size={16}/>
+                    <StarsReview rating={props.review.rating} size={16}/>
                 </div>
             </div>
             <div className={'mt-2'}>

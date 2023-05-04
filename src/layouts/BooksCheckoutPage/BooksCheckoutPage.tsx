@@ -6,6 +6,7 @@ import {CheckoutAndReviewBox} from "./CheckoutAndReviewBox";
 import ReviewModel from "../../models/ReviewModel";
 import {LatestReviews} from "./LatestReviews";
 import {useOktaAuth} from "@okta/okta-react";
+import ReviewRequestModel from "../../models/ReviewRequestModel";
 
 export const BooksCheckoutPage = () => {
 
@@ -97,7 +98,7 @@ export const BooksCheckoutPage = () => {
       setIsLoadingReview(false);
       setHttpError(error.message);
     })
-  }, [])
+  }, [isReviewLeft])
 
   useEffect(() => {
     const fetchUserCurrentLoansCount = async () => {
@@ -156,7 +157,23 @@ export const BooksCheckoutPage = () => {
 
   useEffect(()=> {
     const fetchUserReviewBook = async () => {
-
+      if(authState && authState.isAuthenticated){
+        const url = `http://localhost:8080/api/reviews/secure/user/book/?bookId=${bookId}`;
+        const requestOptions = {
+          method: 'GET',
+          headers:{
+            Authorization: `Bearer ${authState.accessToken?.accessToken}`,
+            'Content-Type' : 'application/json'
+          }
+        };
+        const userReview = await fetch( url, requestOptions);
+        if(!userReview.ok){
+          throw new Error("User Review Fetch Error");
+        }
+        const userReviewResponseJson = await userReview.json();
+        setIsReviewLeft(userReviewResponseJson);
+      }
+      setIsLoadingUserReview(false);
     }
     fetchUserReviewBook().catch((error:any)=>{
       setIsLoadingReview(false);
@@ -192,6 +209,28 @@ export const BooksCheckoutPage = () => {
     setIsCheckedOut(true);
   }
 
+  async function submitReview(starInput: number, reviewDescription: string) {
+    let bookId: number = 0;
+    if (book?.id) {
+      bookId = book.id;
+    }
+    const reviewRequestModel = new ReviewRequestModel(starInput, bookId, reviewDescription);
+    const url = `http://localhost:8080/api/reviews/secure`;
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${authState?.accessToken?.accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(reviewRequestModel)
+    };
+    const returnResponse = await fetch(url, requestOptions);
+    if (!returnResponse.ok) {
+      throw new Error('Review posting error!');
+    }
+    setIsReviewLeft(true);
+  }
+
   return (
     <div>
       <div className='container d-none d-lg-block'>
@@ -209,11 +248,11 @@ export const BooksCheckoutPage = () => {
               <h2>{book?.title}</h2>
               <h5 className='text-primary'>{book?.author}</h5>
               <p className='lead'>{book?.description}</p>
-              <StarsReview  Rating={totalStars} size={32}/>
+              <StarsReview rating={totalStars} size={32}/>
             </div>
           </div>
           <CheckoutAndReviewBox book={book} mobile={false} currentLoansCount={currentLoansCount} isAuthenticated={authState?.isAuthenticated}
-                                isCheckedOut={isCheckedOut} checkoutBook={checkoutBook}/>
+                                isCheckedOut={isCheckedOut} checkoutBook={checkoutBook} isReviewLeft={isReviewLeft} submitReview={submitReview}/>
         </div>
         <hr />
         <LatestReviews reviews={reviews} bookId={book?.id} mobile={false}/>
@@ -235,7 +274,7 @@ export const BooksCheckoutPage = () => {
           </div>
         </div>
         <CheckoutAndReviewBox book={book} mobile={true} currentLoansCount={currentLoansCount} isAuthenticated={authState?.isAuthenticated}
-                              isCheckedOut={isCheckedOut} checkoutBook={checkoutBook}/>
+                              isCheckedOut={isCheckedOut} checkoutBook={checkoutBook} isReviewLeft={isReviewLeft} submitReview={submitReview}/>
         <hr />
         <LatestReviews reviews={reviews} bookId={book?.id} mobile={true}/>
       </div>

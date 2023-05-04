@@ -1,9 +1,10 @@
 import bookModel from "../../models/BookModel";
 import {Link} from "react-router-dom";
 import React from "react";
+import {LeaveAReview} from "../utils/LeaveAReview";
 
 export const CheckoutAndReviewBox: React.FC<{book: bookModel | undefined, mobile: boolean, currentLoansCount: number,
-    isAuthenticated: any, isCheckedOut: boolean, checkoutBook: any }> = (props) => {
+    isAuthenticated: any, isCheckedOut: boolean, checkoutBook: any, isReviewLeft: boolean, submitReview: any }> = (props) => {
 
     function buttonRender() {
         if (props.isAuthenticated){
@@ -18,6 +19,17 @@ export const CheckoutAndReviewBox: React.FC<{book: bookModel | undefined, mobile
             }
         }
         return <Link to={'/login'} className={'btn btn-success btn-lg'}>Sign in</Link>
+    }
+
+    function reviewRender(){
+        if(props.isAuthenticated && !props.isReviewLeft){
+            return (<p><LeaveAReview submitReview={props.submitReview}/></p>
+            );
+        }
+        else if (props.isAuthenticated && props.isReviewLeft){
+            return <p><b>Thanks for the review!</b></p>
+        }
+        return(<div><hr/><p>Sign in to leave a review.</p></div>)
     }
 
     return (
@@ -48,9 +60,7 @@ export const CheckoutAndReviewBox: React.FC<{book: bookModel | undefined, mobile
                 <p className={'mt-3'}>
                     This number can change until order has been placed.
                 </p>
-                <p>
-                    Sign in to leave a review.
-                </p>
+                    {reviewRender()}
             </div>
         </div>
     );

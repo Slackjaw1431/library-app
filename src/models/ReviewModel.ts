@@ -4,7 +4,7 @@ class ReviewModel {
     date: string;
     rating: number;
     book_id: number;
-    reviewDescription: string;
+    reviewDescription?: string;
 
     constructor(id: number, userEmail: string, date: string, rating: number, book_id: number, reviewDescription: string) {
         this.id = id;
