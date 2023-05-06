@@ -90,7 +90,7 @@ export const Loans = () => {
         <div className='d-none d-lg-block mt-2'>
             {shelfCurrentLoans.length > 0 ?
                 <>
-                    <h5>Current Loans: </h5>
+                    <h4>Current Loans: </h4>
                     {shelfCurrentLoans.map(shelfCurrentLoan => (
                         <div key={shelfCurrentLoan.book.id}>
                             <div className='row mt-3 mb-3'>
@@ -148,9 +148,10 @@ export const Loans = () => {
                     ))}
                 </> :
                 <>
-                    <h3 className='mt-3'>
-                        Currently no loans
-                    </h3>
+                    <h4 className='mt-3'>
+                        No Loans Present
+                    </h4>
+                    <br/>
                     <Link className='btn btn-primary' to={`search`}>
                         Search for a new book
                     </Link>
@@ -162,7 +163,7 @@ export const Loans = () => {
         <div className='container d-lg-none mt-2'>
             {shelfCurrentLoans.length > 0 ?
                 <>
-                    <h5 className='mb-3'>Current Loans: </h5>
+                    <h4 className='mb-3'>Current Loans: </h4>
                     {shelfCurrentLoans.map(shelfCurrentLoan => (
                         <div key={shelfCurrentLoan.book.id}>
                             <div className='d-flex justify-content-center align-items-center'>
@@ -218,9 +219,10 @@ export const Loans = () => {
                     ))}
                 </> :
                 <>
-                    <h3 className='mt-3'>
-                        Currently no loans
-                    </h3>
+                    <h4 className='mt-3'>
+                        No loans present:
+                    </h4>
+                    <br/>
                     <Link className='btn btn-primary' to={`search`}>
                         Search for a new book
                     </Link>
