@@ -11,6 +11,7 @@ export const Loans = () => {
 
     const [shelfCurrentLoans, setShelfCurrentLoans] = useState<ShelfCurrentLoans[]>([]);
     const [isLoadingUserLoans, setIsLoadingUserLoans] = useState(true);
+    const [checkout, setCheckout] = useState(false);
 
     useEffect(() => {
         const fetchUserCurrentLoans = async () => {
@@ -18,7 +19,7 @@ export const Loans = () => {
                 const url = `http://localhost:8080/api/books/secure/currentloans`;
                 const requestOptions = {
                     method: 'GET',
-                    header: {
+                    headers: {
                         Authorization: `Bearer ${authState.accessToken?.accessToken}`,
                         'Content-Type': 'application/json'
                     }
@@ -37,17 +38,51 @@ export const Loans = () => {
             setHttpError(error.message);
         })
         window.scrollTo(0, 0);
-    }, [authState])
+    }, [authState, checkout])
 
     if (isLoadingUserLoans) {
         <SpinnerLoading/>
     }
+
     if (httpError) {
         return (
             <div className={'container m-5'}>
                 <p>{httpError}</p>
             </div>
         )
+    }
+
+    async function returnBook(bookId: number) {
+        const url = `http://localhost:8080/api/books/secure/return/?bookId=${bookId}`;
+        const requestOptions = {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${authState?.accessToken?.accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        };
+        const returnResponse = await fetch(url, requestOptions);
+        if (!returnResponse.ok) {
+            throw new Error('Return book error!');
+        }
+        setCheckout(!checkout);
+    }
+
+    async function renewLoan(bookId: number) {
+        const url = `http://localhost:8080/api/books/secure/renew/loan/?bookId=${bookId}`;
+        const requestOptions = {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${authState?.accessToken?.accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        };
+
+        const returnResponse = await fetch(url, requestOptions);
+        if (!returnResponse.ok) {
+            throw new Error('Renewal error!');
+        }
+        setCheckout(!checkout);
     }
 
      return (<div>
@@ -63,7 +98,7 @@ export const Loans = () => {
                                     {shelfCurrentLoan.book?.img ?
                                         <img src={shelfCurrentLoan.book?.img} width='226' height='349' alt='Book'/>
                                         :
-                                        <img src={require('./../../../Images/BooksImages/book-luv2code-1000.png')}
+                                        <img src={require('./../../Images/BooksImages/book-luv2code-1000.png')}
                                              width='226' height='349' alt='Book'/>
                                     }
                                 </div>
@@ -89,7 +124,7 @@ export const Loans = () => {
                                             <div className='list-group mt-3'>
                                                 <button className='list-group-item list-group-item-action'
                                                         aria-current='true' data-bs-toggle='modal'
-                                                        data-bs-target={`${shelfCurrentLoan.book.id}`}>
+                                                        data-bs-target={`#modal${shelfCurrentLoan.book.id}`}>
                                                     Manage Loan
                                                 </button>
                                                 <Link to={'search'} className='list-group-item list-group-item-action'>
@@ -108,6 +143,7 @@ export const Loans = () => {
                                 </div>
                             </div>
                             <hr/>
+                            <LoansModal shelfCurrentLoan={shelfCurrentLoan} mobile={false} returnBook={returnBook} renewLoan={renewLoan}/>
                         </div>
                     ))}
                 </> :
@@ -133,7 +169,7 @@ export const Loans = () => {
                                 {shelfCurrentLoan.book?.img ?
                                     <img src={shelfCurrentLoan.book?.img} width='226' height='349' alt='Book'/>
                                     :
-                                    <img src={require('./../../../Images/BooksImages/book-luv2code-1000.png')}
+                                    <img src={require('./../../Images/BooksImages/book-luv2code-1000.png')}
                                          width='226' height='349' alt='Book'/>
                                 }
                             </div>
@@ -177,6 +213,7 @@ export const Loans = () => {
                                 </div>
                             </div>
                             <hr/>
+                            <LoansModal shelfCurrentLoan={shelfCurrentLoan} mobile={true} returnBook={returnBook} renewLoan={renewLoan}/>
                         </div>
                     ))}
                 </> :
