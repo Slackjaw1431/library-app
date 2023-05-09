@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import BookModel from "../../models/BookModel";
+import BookModel from "../../../models/BookModel";
 
 export const ReturnBook: React.FC<{book: BookModel}> = (props) => {
 
@@ -13,7 +13,7 @@ export const ReturnBook: React.FC<{book: BookModel}> = (props) => {
             height="233"
             alt="book"
         /> : <img
-            src={require("./../../Images/BooksImages/book-luv2code-1000.png")}
+            src={require("../../../Images/BooksImages/book-luv2code-1000.png")}
             width="151"
             height="233"
             alt="book"

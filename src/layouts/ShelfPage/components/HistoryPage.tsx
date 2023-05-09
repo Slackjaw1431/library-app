@@ -1,8 +1,8 @@
 import {useOktaAuth} from "@okta/okta-react";
 import React, {useEffect, useState} from "react";
-import HistoryModel from "../../models/HistoryModel";
-import SpinnerLoading from "../utils/SpinnerLoading";
-import {Pagination} from "../utils/Pagination";
+import HistoryModel from "../../../models/HistoryModel";
+import SpinnerLoading from "../../utils/SpinnerLoading";
+import {Pagination} from "../../utils/Pagination";
 import {Link} from "react-router-dom";
 
 export const HistoryPage = () => {
@@ -73,7 +73,7 @@ export const HistoryPage = () => {
                                             {history.img ?
                                                 <img src={history.img} width='123' height='196' alt='Book' />
                                                 :
-                                                <img src={require('./../../Images/BooksImages/book-luv2code-1000.png')}
+                                                <img src={require('../../../Images/BooksImages/book-luv2code-1000.png')}
                                                      width='123' height='196' alt='Default'/>
                                             }
                                         </div>
@@ -81,7 +81,7 @@ export const HistoryPage = () => {
                                             {history.img ?
                                                 <img src={history.img} width='123' height='196' alt='Book' />
                                                 :
-                                                <img src={require('./../../Images/BooksImages/book-luv2code-1000.png')}
+                                                <img src={require('../../../Images/BooksImages/book-luv2code-1000.png')}
                                                      width='123' height='196' alt='Default'/>
                                             }
                                         </div>

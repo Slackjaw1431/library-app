@@ -1,7 +1,7 @@
 import {useOktaAuth} from "@okta/okta-react";
 import React, {useEffect, useState} from "react";
-import ShelfCurrentLoans from "../../models/ShelfCurrentLoans";
-import SpinnerLoading from "../utils/SpinnerLoading";
+import ShelfCurrentLoans from "../../../models/ShelfCurrentLoans";
+import SpinnerLoading from "../../utils/SpinnerLoading";
 import {Link} from "react-router-dom";
 import {LoansModal} from "./LoansModal";
 
@@ -98,7 +98,7 @@ export const Loans = () => {
                                     {shelfCurrentLoan.book?.img ?
                                         <img src={shelfCurrentLoan.book?.img} width='226' height='349' alt='Book'/>
                                         :
-                                        <img src={require('./../../Images/BooksImages/book-luv2code-1000.png')}
+                                        <img src={require('../../../Images/BooksImages/book-luv2code-1000.png')}
                                              width='226' height='349' alt='Book'/>
                                     }
                                 </div>
@@ -170,7 +170,7 @@ export const Loans = () => {
                                 {shelfCurrentLoan.book?.img ?
                                     <img src={shelfCurrentLoan.book?.img} width='226' height='349' alt='Book'/>
                                     :
-                                    <img src={require('./../../Images/BooksImages/book-luv2code-1000.png')}
+                                    <img src={require('../../../Images/BooksImages/book-luv2code-1000.png')}
                                          width='226' height='349' alt='Book'/>
                                 }
                             </div>

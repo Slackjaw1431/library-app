@@ -1,5 +1,5 @@
-import {Loans} from "../components/Loans";
-import {HistoryPage} from "../components/HistoryPage";
+import {Loans} from "./components/Loans";
+import {HistoryPage} from "./components/HistoryPage";
 import {useState} from "react";
 
 export const ShelfPage = () => {
