@@ -1,6 +1,8 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {useOktaAuth} from "@okta/okta-react";
 import {Redirect} from "react-router-dom";
+import {AdminMessages} from "./components/AdminMessages";
+import {ChangeQuantityOfBooks} from "./components/ChangeQuantityOfBook";
 
 export const ManageLibraryPage = () => {
 
@@ -27,7 +29,6 @@ export const ManageLibraryPage = () => {
     if (authState?.accessToken?.claims.userType === undefined) {
         return <Redirect to='/home'/>
     }
-
 
     return(
         <div className='container'>
