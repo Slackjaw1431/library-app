@@ -1,9 +1,16 @@
 import React, {useState} from "react";
 import {PostNewMessage} from "./components/PostNewMessage";
 import {Messages} from "./components/Messages";
+import {Redirect} from "react-router-dom";
+import {useOktaAuth} from "@okta/okta-react";
 
 export const MessagesPage = () => {
     const [messagesClick, setMessagesClick] = useState(false);
+    const { authState } = useOktaAuth();
+
+    if (authState?.accessToken?.claims.userType) {
+        return <Redirect to='/admin'/>
+    }
 
     return (
         <div className='container'>

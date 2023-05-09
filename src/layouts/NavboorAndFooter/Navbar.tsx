@@ -1,4 +1,4 @@
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, Redirect} from "react-router-dom";
 import { useOktaAuth } from "@okta/okta-react";
 import React from "react";
 import SpinnerLoading from "../utils/SpinnerLoading";
@@ -42,13 +42,23 @@ export const Navbar = () => {
                 Search Books
               </NavLink>
             </li>
-            {authState.isAuthenticated &&
+            {authState.isAuthenticated && !authState?.accessToken?.claims.userType &&
                 <>
                   <li className={'nav-link'}>
                     <NavLink className={'nav-link'} to={'/shelf'}>Shelf</NavLink>
                   </li>
                   <li className={'nav-link'}>
                     <NavLink className={'nav-link'} to={'/messages'}>Messages</NavLink>
+                  </li>
+                </>
+            }
+            {authState.isAuthenticated && authState?.accessToken?.claims.userType &&
+                <>
+                  <li className={'nav-link'}>
+                  <NavLink className={'nav-link'} to={'/shelf'}>Shelf</NavLink>
+                </li>
+                  <li className={'nav-link'}>
+                    <NavLink className={'nav-link'} to={'/admin'}>Admin Services</NavLink>
                   </li>
                 </>
             }
