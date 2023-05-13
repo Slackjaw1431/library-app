@@ -11,7 +11,7 @@ export const PostNewMessage = () => {
     const [displaySuccess, setDisplaySuccess] = useState(false);
 
     async function submitNewQuestion() {
-        const url = `https://localhost:8443/api/messages/secure/add/message`;
+        const url = `${process.env.REACT_APP_URL}/messages/secure/add/message`;
         if (authState?.isAuthenticated && title !== '' && question !== '') {
             const messageRequestModel: MessageModel = new MessageModel(title, question);
             const requestOptions = {

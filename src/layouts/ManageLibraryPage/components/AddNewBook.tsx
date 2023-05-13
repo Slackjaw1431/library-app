@@ -38,7 +38,7 @@ export const AddNewBook = () => {
     }
 
     async function submitNewBook() {
-        const url = `https://localhost:8443/api/admin/secure/add/book`;
+        const url = `${process.env.REACT_APP_URL}/admin/secure/add/book`;
         if (authState?.isAuthenticated && title !== '' && author !== '' && category !== 'Category'
             && description !== '' && copies >= 0) {
             const book: AddBookRequest = new AddBookRequest(title, author, description, category, copies);

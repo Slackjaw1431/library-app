@@ -16,7 +16,7 @@ export const Loans = () => {
     useEffect(() => {
         const fetchUserCurrentLoans = async () => {
             if (authState && authState.isAuthenticated) {
-                const url = `https://localhost:8443/api/books/secure/currentloans`;
+                const url = `${process.env.REACT_APP_URL}/books/secure/currentloans`;
                 const requestOptions = {
                     method: 'GET',
                     headers: {
@@ -53,7 +53,7 @@ export const Loans = () => {
     }
 
     async function returnBook(bookId: number) {
-        const url = `https://localhost:8443/api/books/secure/return/?bookId=${bookId}`;
+        const url = `${process.env.REACT_APP_URL}/books/secure/return/?bookId=${bookId}`;
         const requestOptions = {
             method: 'PUT',
             headers: {
@@ -69,7 +69,7 @@ export const Loans = () => {
     }
 
     async function renewLoan(bookId: number) {
-        const url = `https://localhost:8443/api/books/secure/renew/loan/?bookId=${bookId}`;
+        const url = `${process.env.REACT_APP_URL}/books/secure/renew/loan/?bookId=${bookId}`;
         const requestOptions = {
             method: 'PUT',
             headers: {
