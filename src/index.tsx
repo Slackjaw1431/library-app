@@ -6,7 +6,8 @@ import { BrowserRouter} from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
-const stripePromise = loadStripe('pk_live_51N7Uh3BECgkfUqg5Kd7v8bkHmAeUuW4eUpCIckwpJxKImfTD3KpiWtjZu7hGsEfLcboFGXi3mVP9pKA3MezB610I00STTEWA2Q')
+
+const stripePromise = loadStripe('sk_test_51N7Uh3BECgkfUqg5OLbHRuEJvOOhq4YXMhgHxwkfXyDC1qoQPUPCtnBqT1q0c82urdW5j1qIuhSE9LacEDbVezLk00bbnFCnmB')
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
